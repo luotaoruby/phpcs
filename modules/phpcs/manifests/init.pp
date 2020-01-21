@@ -45,15 +45,33 @@ class phpcs (
 		}
 
 		exec { 'wordpress cs install':
-			command => 'git clone -b master https://github.com/WordPress/WordPress-Coding-Standards.git /vagrant/extensions/phpcs/wpcs && phpcs --config-set installed_paths /vagrant/extensions/phpcs/wpcs',
+			command => 'git clone -b master https://github.com/WordPress/WordPress-Coding-Standards.git /vagrant/extensions/phpcs/wpcs',
 			path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
 			require => [ Package['git-core'], Exec['phpcs install'], File['/vagrant/extensions/phpcs/wpcs'] ]
 		}
 
+                exec { 'wordpress vip cs install':
+                        command => 'git clone -b master https://github.com/Automattic/VIP-Coding-Standards.git /vagrant/extensions/phpcs/wpcs-vip && phpcs --config-set installed_paths /vagrant/extensions/phpcs/wpcs-vip',
+			path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+			require => [ Package['git-core'], Exec['phpcs install'], File['/vagrant/extensions/phpcs/wpcs-vip'] ]
+                }
+
+                exec { 'register wpcs and wpcs-vip to phpcs':
+                        command => 'phpcs --config-set installed_paths /vagrant/extensions/phpcs/wpcs,/vagrant/extensions/phpcs/wpcs-vip',
+			path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+			require => [ Package['git-core'], Exec['phpcs install'], File['/vagrant/extensions/phpcs/wpcs'], File['/vagrant/extensions/phpcs/wpcs-vip'] ]
+                }
+
 		file { '/vagrant/extensions/phpcs/wpcs':
 			ensure => absent,
 			force  => true
-		}
+                }
+
+                file {
+                       '/vagrant/extensions/phpcs/wpcs-vip':
+                        ensure => absent,
+                        force  => true
+                }
 	} else {
 		exec { 'phpcs uninstall':
 			command => 'pear uninstall PHP_CodeSniffer',
@@ -61,9 +79,16 @@ class phpcs (
 			require => Package[ "${php_package}-dev", 'php-pear', "${php_package}-fpm" ],
 			notify  => Service["${php_package}-fpm"],
 		}
+
 		file { '/vagrant/extensions/phpcs/wpcs':
 			ensure => absent,
 			force  => true
-		}
+                }
+
+                file {
+                       '/vagrant/extensions/phpcs/wpcs-vip':
+                        ensure => absent,
+                        force  => true
+                }
 	}
 }
