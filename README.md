@@ -1,8 +1,8 @@
 # PHP_CodeSniffer
-A Chassis extension to install and configure [PHP_CodeSniffer](http://pear.php.net/package/PHP_CodeSniffer) with [WordPress Coding Standard Sniffs](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards) on your server.
+A Chassis extension to install and configure [PHP_CodeSniffer](http://pear.php.net/package/PHP_CodeSniffer) with [WordPress Coding Standard Sniffs](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards) and [VIP Coding Standards](https://github.com/Automattic/VIP-Coding-Standards) on your server.
 
 ## Usage
-1. Add this extension to your extensions directory. `git clone git@github.com:Chassis/phpcs.git extensions/phpcs`
+1. Add this extension to your extensions directory. `git clone git@github.com:luotaoruby/phpcs.git extensions/phpcs`
 2. Run `vagrant provision`
 3. Php_Codesniffer with WordPress Coding Standards has been installed on your Chassis VM!
 

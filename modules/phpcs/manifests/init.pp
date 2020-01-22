@@ -67,8 +67,7 @@ class phpcs (
 			force  => true
                 }
 
-                file {
-                       '/vagrant/extensions/phpcs/wpcs-vip':
+                file { '/vagrant/extensions/phpcs/wpcs-vip':
                         ensure => absent,
                         force  => true
                 }
@@ -85,8 +84,7 @@ class phpcs (
 			force  => true
                 }
 
-                file {
-                       '/vagrant/extensions/phpcs/wpcs-vip':
+                file { '/vagrant/extensions/phpcs/wpcs-vip':
                         ensure => absent,
                         force  => true
                 }
